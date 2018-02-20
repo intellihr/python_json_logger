@@ -4,7 +4,9 @@ import json
 import logging
 import uuid
 import socket
+import traceback
 from datetime import date, datetime, time, timezone
+from inspect import istraceback, isclass
 
 STANDARD_FORMATTERS = re.compile(r'\((.+?)\)', re.IGNORECASE)
 
@@ -48,15 +50,37 @@ class JsonFormatter(logging.Formatter):
 
         log_record.update(default_log_dict)
 
+        # merge extra.attrs into top level attrs
         for key, value in record.__dict__.items():
             if key in RESERVED_ATTRS:
                 continue
             if key in TOP_LEVEL_ATTRS:
                 log_record[key] = value
 
+        # merge extra.data into main data body
         if hasattr(record, 'data'):
             data = log_record.get('data', {})
             data.update(getattr(record, 'data'))
+            log_record['data'] = data
+
+        # include exception detail when available
+        if record.exc_info is not None:
+            data = log_record.get('data', {})
+            data['_exc_info'] = dict(
+                exception=record.exc_info[0],
+                msg=record.exc_info[1],
+                traceback=record.exc_info[2]
+            )
+            log_record['data'] = data
+
+        # provide extra code context detail in debug mode
+        if record.levelname == 'DEBUG':
+            data = log_record.get('data', {})
+            data['_code'] = dict(
+                pathname=record.pathname,
+                lineno=record.lineno,
+                func_name=record.funcName
+            )
             log_record['data'] = data
 
         return log_record
@@ -66,7 +90,14 @@ class JsonLogEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, (date, datetime, time)):
             return obj.isoformat()
-        if isinstance(obj, uuid.UUID):
+        elif isclass(obj):
+            return obj.__name__
+        elif isinstance(obj, Exception):
+            return 'exception: %s' % str(obj)
+        elif istraceback(obj):
+            tb = ''.join(traceback.format_tb(obj))
+            return tb.strip()
+        elif isinstance(obj, uuid.UUID):
             return str(obj)
 
         return json.JSONEncoder.default(self, obj)

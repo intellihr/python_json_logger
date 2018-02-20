@@ -82,3 +82,20 @@ def test_info_log_with_data(snapshot, logger_context):
         tags=['test'], data=dict(a=1, b=2)))
 
     snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
+def test_info_log_exception(snapshot, logger_context):
+    try:
+        raise ValueError('value issue!')
+    except ValueError as e:
+        logger_context.logger.exception(e)
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
+def test_debug_log(snapshot, logger_context):
+    logger_context.logger.debug('debug here!')
+
+    snapshot.assert_match(logger_context.output)
