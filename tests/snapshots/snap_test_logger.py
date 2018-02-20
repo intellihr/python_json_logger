@@ -8,6 +8,8 @@ from snapshottest import Snapshot
 snapshots = Snapshot()
 
 snapshots['test_simple_info_log 1'] = {
+    'data': {
+    },
     'environment': 'prod',
     'host': 'testhost',
     'level': 'info',
@@ -18,6 +20,8 @@ snapshots['test_simple_info_log 1'] = {
 }
 
 snapshots['test_info_log_with_interpolation 1'] = {
+    'data': {
+    },
     'environment': 'prod',
     'host': 'testhost',
     'level': 'info',
@@ -63,6 +67,8 @@ snapshots['test_info_log_with_structured_payload 1'] = {
 }
 
 snapshots['test_info_log_with_kwargs 1'] = {
+    'data': {
+    },
     'environment': 'prod',
     'host': 'testhost',
     'level': 'info',

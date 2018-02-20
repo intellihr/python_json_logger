@@ -57,31 +57,29 @@ class JsonFormatter(logging.Formatter):
             if key in TOP_LEVEL_ATTRS:
                 log_record[key] = value
 
+        data = log_record.get('data', {})
+
         # merge extra.data into main data body
         if hasattr(record, 'data'):
-            data = log_record.get('data', {})
             data.update(getattr(record, 'data'))
-            log_record['data'] = data
 
         # include exception detail when available
         if record.exc_info is not None:
-            data = log_record.get('data', {})
             data['_exc_info'] = dict(
                 exception=record.exc_info[0],
                 msg=record.exc_info[1],
                 traceback=record.exc_info[2]
             )
-            log_record['data'] = data
 
         # provide extra code context detail in debug mode
         if record.levelname == 'DEBUG':
-            data = log_record.get('data', {})
             data['_code'] = dict(
                 pathname=record.pathname,
                 lineno=record.lineno,
                 func_name=record.funcName
             )
-            log_record['data'] = data
+
+        log_record['data'] = data
 
         return log_record
 
