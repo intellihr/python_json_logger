@@ -7,7 +7,8 @@ import traceback
 from datetime import date, datetime, time, timezone
 from inspect import istraceback, isclass
 
-JSON_LOG_INDENT = os.environ.get('JSON_LOG_INDENT', 0)
+JSON_LOG_INDENT = int(os.environ.get('JSON_LOG_INDENT')) \
+    if os.environ.get('JSON_LOG_INDENT') else None
 
 RESERVED_ATTRS = (
     'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
