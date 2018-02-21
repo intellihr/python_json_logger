@@ -8,7 +8,7 @@ It is an opinionated framework and assume certain environment variables to exist
 Pip:
 
 ```
-    pip install https://github.com/intellihr/python_json_logger/archive/0.0.1.zip
+    pip install https://github.com/intellihr/python_json_logger/archive/v0.0.1.zip
 ```
 
 
