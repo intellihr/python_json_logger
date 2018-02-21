@@ -8,7 +8,7 @@ It is an opinionated framework and assume certain environment variables to exist
 Pip:
 
 ```
-    pip install https://github.com/intellihr/python_json_logger/archive/v0.0.1.zip
+    pip install https://github.com/intellihr/python_json_logger/archive/v0.0.2.zip
 ```
 
 
@@ -110,3 +110,5 @@ docker-compose run --rm local make
 Based on: https://intellihr.atlassian.net/wiki/spaces/DG/pages/284983300/Logging+Format
 
 - `v0.0.1` (mapped to format standard version `0.0.1`)
+- `v0.0.2` (mapped to format standard version `0.0.1`)
+  - add support for JSON_LOG_INDENT (basically json prettify)

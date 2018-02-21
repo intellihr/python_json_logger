@@ -7,6 +7,7 @@ import traceback
 from datetime import date, datetime, time, timezone
 from inspect import istraceback, isclass
 
+JSON_LOG_INDENT = os.environ.get('JSON_LOG_INDENT', 0)
 
 RESERVED_ATTRS = (
     'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
@@ -33,7 +34,8 @@ class JsonFormatter(logging.Formatter):
     def format(self, record):
         log_record = self._make_log_record(record)
 
-        return json.dumps(log_record, cls=JsonLogEncoder)
+        return json.dumps(log_record,
+                          cls=JsonLogEncoder, indent=JSON_LOG_INDENT)
 
     def _make_log_record(self, record):
         log_record = dict(
@@ -77,7 +79,8 @@ class JsonFormatter(logging.Formatter):
                 func_name=record.funcName
             )
 
-        log_record['data'] = data
+        if data:
+            log_record['data'] = data
 
         return log_record
 

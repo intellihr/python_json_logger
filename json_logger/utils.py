@@ -1,4 +1,5 @@
-PATCHED_LOGGER_METHODS = ('debug', 'info', 'warning', 'error', 'critical')
+PATCHED_LOGGER_METHODS = ('debug', 'info', 'warning',
+                          'error', 'critical', 'exception')
 
 
 class LoggerAdapter:
