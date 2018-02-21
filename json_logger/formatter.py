@@ -1,5 +1,4 @@
 import os
-import re
 import json
 import logging
 import uuid
@@ -8,7 +7,6 @@ import traceback
 from datetime import date, datetime, time, timezone
 from inspect import istraceback, isclass
 
-STANDARD_FORMATTERS = re.compile(r'\((.+?)\)', re.IGNORECASE)
 
 RESERVED_ATTRS = (
     'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
