@@ -46,6 +46,9 @@ class JsonFormatter(logging.Formatter):
         )
         if isinstance(record.msg, dict):
             log_record['data'] = record.msg
+        elif isinstance(record.msg, Exception):
+            if record.exc_info is None:
+                log_record['message'] = 'exception: %s' % str(record.msg)
         else:
             log_record['message'] = record.getMessage()
 

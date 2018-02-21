@@ -32,7 +32,7 @@ def to_api_logger(logger):
             path = request.path
             if request.query_string:
                 path += '?' + request.query_string
-                extra['path'] = path
+            extra['path'] = path
 
         response = kwargs.pop('response', None)
         if response and response.status:
