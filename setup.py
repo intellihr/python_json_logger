@@ -16,7 +16,7 @@ Allow standard python logging to output log data as json objects.
 install_requires = []
 
 setup(
-    name='event_bus_python',
+    name='python_json_logger',
     version=VERSION,
     url='https://github.com/intellihr/python_json_logger',
     author='intellihr',
