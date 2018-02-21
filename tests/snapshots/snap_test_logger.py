@@ -88,7 +88,6 @@ snapshots['test_info_log_exception 1'] = {
     'environment': 'prod',
     'host': 'testhost',
     'level': 'error',
-    'message': 'value issue!',
     'region': 'us-east-2',
     'service': 'test_app',
     'timestamp': '2018-02-14T00:00:00+00:00'

@@ -8,7 +8,7 @@ It is an opinionated framework and assume certain environment variables to exist
 Pip:
 
 ```
-    pip install https://github.com/intellihr/python_json_logger/archive/v0.0.2.zip
+    pip install https://github.com/intellihr/python_json_logger/archive/v0.0.3.zip
 ```
 
 
@@ -18,7 +18,7 @@ Pip:
 
 - *APP_NAME* - mapped to `service`
 - *ENV_TYPE* - mapped to `environment`
-- *AWS_DEFAULT_REGION* - mapped to `region`
+- *AWS_REGION* or *AWS_DEFAULT_REGION* - mapped to `region`
 
 ## Integrating with Python's logging framework
 
@@ -112,3 +112,5 @@ Based on: https://intellihr.atlassian.net/wiki/spaces/DG/pages/284983300/Logging
 - `v0.0.1` (mapped to format standard version `0.0.1`)
 - `v0.0.2` (mapped to format standard version `0.0.1`)
   - add support for JSON_LOG_INDENT (basically json prettify)
+- `v0.0.3` (mapped to format standard version `0.0.1`)
+  - support both AWS_REGION and AWS_DEFAULT_REGION

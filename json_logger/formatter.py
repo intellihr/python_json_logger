@@ -23,7 +23,8 @@ TOP_LEVEL_ATTRS = ('level', 'service', 'user', 'environment',
 default_log_dict = dict(
     service=os.environ.get('APP_NAME'),
     environment=os.environ.get('ENV_TYPE'),
-    region=os.environ.get('AWS_DEFAULT_REGION'),
+    region=(os.environ.get('AWS_REGION') or
+            os.environ.get('AWS_DEFAULT_REGION')),
     host=socket.gethostname()
 )
 
