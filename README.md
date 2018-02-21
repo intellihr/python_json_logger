@@ -98,3 +98,10 @@ For more examples, please refer to: https://github.com/intellihr/python_json_log
 ```bash
 docker-compose run --rm local make
 ```
+
+
+# Version and JSON Logging Format Standard Mapping
+
+Based on: https://intellihr.atlassian.net/wiki/spaces/DG/pages/284983300/Logging+Format
+
+- `v0.0.1` (mapped to format standard version `0.0.1`)
