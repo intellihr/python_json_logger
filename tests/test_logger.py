@@ -8,6 +8,8 @@ from unittest.mock import patch
 
 import pytest
 
+from json_logger.utils import to_api_logger
+
 
 class LoggerContext(namedtuple('LoggerContext', 'logger buffer')):
     __slots__ = ()
@@ -97,5 +99,24 @@ def test_info_log_exception(snapshot, logger_context):
 @pytest.mark.freeze_time('2018-02-14')
 def test_debug_log(snapshot, logger_context):
     logger_context.logger.debug('debug here!')
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
+def test_to_api_logger_log_request(snapshot, logger_context):
+    falcon_request = namedtuple(
+        'falcon_request', 'path query_string')('/test_route', 'a=1')
+    api_logger = to_api_logger(logger_context.logger)
+    api_logger.info('test request', request=falcon_request)
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
+def test_to_api_logger_log_response(snapshot, logger_context):
+    falcon_response = namedtuple('falcon_request', 'status')('200 OK')
+    api_logger = to_api_logger(logger_context.logger)
+    api_logger.info('test response', response=falcon_response)
 
     snapshot.assert_match(logger_context.output)

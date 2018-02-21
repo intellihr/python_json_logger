@@ -13,12 +13,7 @@ long_description = '''
 Allow standard python logging to output log data as json objects.
 '''
 
-install_requires = [
-    "requests>=2.18,<3.0",
-    "six>=1.11",
-    "PyJWT>=1.5.3",
-    "python-dateutil>=2.6"
-]
+install_requires = []
 
 setup(
     name='event_bus_python',
