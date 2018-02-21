@@ -93,6 +93,11 @@ class = json_logger.formatter.JsonFormatter
 For more examples, please refer to: https://github.com/intellihr/python_json_logger/blob/master/tests/snapshots/snap_test_logger.py
 
 
+## Logging Adapter
+
+`json_logger.utils.adapt_logger` provides an utility logging adapter to map logging parameters
+into special field. For more detail please refer to the `json_logger.utils.to_api_logger` as example.
+
 # Build and Run Test
 
 ```bash
