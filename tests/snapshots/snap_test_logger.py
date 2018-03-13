@@ -81,13 +81,13 @@ snapshots['test_info_log_exception 1'] = {
         '_exc_info': {
             'exception': 'ValueError',
             'msg': 'exception: value issue!',
-            'traceback': '''File "/usr/src/app/tests/test_logger.py", line 92, in test_info_log_exception
+            'traceback': '''File "/usr/src/app/tests/test_logger.py", line 96, in test_info_log_exception
     raise ValueError('value issue!')'''
         }
     },
     'environment': 'prod',
     'host': 'testhost',
-    'level': 'error',
+    'level': 'err',
     'region': 'us-east-2',
     'service': 'test_app',
     'timestamp': '2018-02-14T00:00:00+00:00'
@@ -97,7 +97,7 @@ snapshots['test_debug_log 1'] = {
     'data': {
         '_code': {
             'func_name': 'test_debug_log',
-            'lineno': 101,
+            'lineno': 105,
             'pathname': '/usr/src/app/tests/test_logger.py'
         }
     },
@@ -129,5 +129,25 @@ snapshots['test_to_api_logger_log_response 1'] = {
     'region': 'us-east-2',
     'service': 'test_app',
     'status': 200,
+    'timestamp': '2018-02-14T00:00:00+00:00'
+}
+
+snapshots['test_warning_log 1'] = {
+    'environment': 'prod',
+    'host': 'testhost',
+    'level': 'warning',
+    'message': 'warning here!',
+    'region': 'us-east-2',
+    'service': 'test_app',
+    'timestamp': '2018-02-14T00:00:00+00:00'
+}
+
+snapshots['test_critical_log 1'] = {
+    'environment': 'prod',
+    'host': 'testhost',
+    'level': 'crit',
+    'message': 'critical here!',
+    'region': 'us-east-2',
+    'service': 'test_app',
     'timestamp': '2018-02-14T00:00:00+00:00'
 }

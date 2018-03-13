@@ -63,7 +63,8 @@ def test_info_log_with_interpolation(snapshot, logger_context):
 @pytest.mark.freeze_time('2018-02-14')
 def test_info_log_with_structured_payload(snapshot, logger_context):
     msg = dict(
-        a=1, b=[1, 2, uuid.UUID('fd2ea794-8605-4067-9152-33529ca96807')],
+        a=1,
+        b=[1, 2, uuid.UUID('fd2ea794-8605-4067-9152-33529ca96807')],
         c=datetime(2017, 1, 2))
     logger_context.logger.info(msg)
 
@@ -72,16 +73,19 @@ def test_info_log_with_structured_payload(snapshot, logger_context):
 
 @pytest.mark.freeze_time('2018-02-14')
 def test_info_log_with_kwargs(snapshot, logger_context):
-    logger_context.logger.info('test message', extra=dict(
-        tags=['test'], user=uuid.UUID('fd2ea794-8605-4067-9152-33529ca96807')))
+    logger_context.logger.info(
+        'test message',
+        extra=dict(
+            tags=['test'],
+            user=uuid.UUID('fd2ea794-8605-4067-9152-33529ca96807')))
 
     snapshot.assert_match(logger_context.output)
 
 
 @pytest.mark.freeze_time('2018-02-14')
 def test_info_log_with_data(snapshot, logger_context):
-    logger_context.logger.info('test message', extra=dict(
-        tags=['test'], data=dict(a=1, b=2)))
+    logger_context.logger.info(
+        'test message', extra=dict(tags=['test'], data=dict(a=1, b=2)))
 
     snapshot.assert_match(logger_context.output)
 
@@ -104,9 +108,23 @@ def test_debug_log(snapshot, logger_context):
 
 
 @pytest.mark.freeze_time('2018-02-14')
+def test_warning_log(snapshot, logger_context):
+    logger_context.logger.warn('warning here!')
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
+def test_critical_log(snapshot, logger_context):
+    logger_context.logger.critical('critical here!')
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
 def test_to_api_logger_log_request(snapshot, logger_context):
-    falcon_request = namedtuple(
-        'falcon_request', 'path query_string')('/test_route', 'a=1')
+    falcon_request = namedtuple('falcon_request',
+                                'path query_string')('/test_route', 'a=1')
     api_logger = to_api_logger(logger_context.logger)
     api_logger.info('test request', request=falcon_request)
 
