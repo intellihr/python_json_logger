@@ -10,23 +10,29 @@ from inspect import istraceback, isclass
 JSON_LOG_INDENT = int(os.environ.get('JSON_LOG_INDENT')) \
     if os.environ.get('JSON_LOG_INDENT') else None
 
-RESERVED_ATTRS = (
-    'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
-    'funcName', 'levelname', 'levelno', 'lineno', 'module',
-    'msecs', 'message', 'msg', 'name', 'pathname', 'process',
-    'processName', 'relativeCreated', 'stack_info', 'thread', 'threadName')
+RESERVED_ATTRS = ('args', 'asctime', 'created', 'exc_info', 'exc_text',
+                  'filename', 'funcName', 'levelname', 'levelno', 'lineno',
+                  'module', 'msecs', 'message', 'msg', 'name', 'pathname',
+                  'process', 'processName', 'relativeCreated', 'stack_info',
+                  'thread', 'threadName')
 
-TOP_LEVEL_ATTRS = ('level', 'service', 'user', 'environment',
-                   'host', 'tags', 'message', 'tenant', 'timestamp',
-                   'path', 'status')
+TOP_LEVEL_ATTRS = ('level', 'service', 'user', 'environment', 'host', 'tags',
+                   'message', 'tenant', 'timestamp', 'path', 'status')
+
+LEVEL_NAMES = {
+    'DEBUG': 'debug',
+    'INFO': 'info',
+    'WARNING': 'warning',
+    'ERROR': 'err',
+    'CRITICAL': 'crit'
+}
 
 default_log_dict = dict(
     service=os.environ.get('APP_NAME'),
     environment=os.environ.get('ENV_TYPE'),
-    region=(os.environ.get('AWS_REGION') or
-            os.environ.get('AWS_DEFAULT_REGION')),
-    host=socket.gethostname()
-)
+    region=(os.environ.get('AWS_REGION')
+            or os.environ.get('AWS_DEFAULT_REGION')),
+    host=socket.gethostname())
 
 
 class JsonFormatter(logging.Formatter):
@@ -36,15 +42,14 @@ class JsonFormatter(logging.Formatter):
     def format(self, record):
         log_record = self._make_log_record(record)
 
-        return json.dumps(log_record,
-                          cls=JsonLogEncoder, indent=JSON_LOG_INDENT)
+        return json.dumps(
+            log_record, cls=JsonLogEncoder, indent=JSON_LOG_INDENT)
 
     def _make_log_record(self, record):
         log_record = dict(
-            level=record.levelname.lower(),
-            timestamp=datetime.fromtimestamp(
-                record.created, tz=timezone.utc).isoformat()
-        )
+            level=LEVEL_NAMES.get(record.levelname, record.levelname.lower()),
+            timestamp=datetime.fromtimestamp(record.created,
+                                             tz=timezone.utc).isoformat())
         if isinstance(record.msg, dict):
             log_record['data'] = record.msg
         elif isinstance(record.msg, Exception):
@@ -73,16 +78,14 @@ class JsonFormatter(logging.Formatter):
             data['_exc_info'] = dict(
                 exception=record.exc_info[0],
                 msg=record.exc_info[1],
-                traceback=record.exc_info[2]
-            )
+                traceback=record.exc_info[2])
 
         # provide extra code context detail in debug mode
         if record.levelname == 'DEBUG':
             data['_code'] = dict(
                 pathname=record.pathname,
                 lineno=record.lineno,
-                func_name=record.funcName
-            )
+                func_name=record.funcName)
 
         if data:
             log_record['data'] = data
