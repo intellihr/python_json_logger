@@ -106,5 +106,7 @@ class JsonLogEncoder(json.JSONEncoder):
             return tb.strip()
         elif isinstance(obj, uuid.UUID):
             return str(obj)
+        elif isinstance(obj, set):
+            return list(obj)
 
         return json.JSONEncoder.default(self, obj)

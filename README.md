@@ -114,3 +114,7 @@ Based on: https://intellihr.atlassian.net/wiki/spaces/DG/pages/284983300/Logging
   - add support for JSON_LOG_INDENT (basically json prettify)
 - `v0.0.3` (mapped to format standard version `0.0.1`)
   - support both AWS_REGION and AWS_DEFAULT_REGION
+- `v0.0.4` (mapped to format standard version `0.0.1`)
+  - change log level from error to err
+- `v0.0.5` (mapped to format standard version `0.0.1`)
+  - support log set type

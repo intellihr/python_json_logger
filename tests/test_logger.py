@@ -91,6 +91,16 @@ def test_info_log_with_data(snapshot, logger_context):
 
 
 @pytest.mark.freeze_time('2018-02-14')
+def test_info_log_handle_set_type(snapshot, logger_context):
+    logger_context.logger.info(
+        'test message',
+        extra=dict(
+            tags=['test'], data=dict(a=1, b=set([1, 2]), c=set([1, '3']))))
+
+    snapshot.assert_match(logger_context.output)
+
+
+@pytest.mark.freeze_time('2018-02-14')
 def test_info_log_exception(snapshot, logger_context):
     try:
         raise ValueError('value issue!')

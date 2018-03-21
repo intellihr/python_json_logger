@@ -81,7 +81,7 @@ snapshots['test_info_log_exception 1'] = {
         '_exc_info': {
             'exception': 'ValueError',
             'msg': 'exception: value issue!',
-            'traceback': '''File "/usr/src/app/tests/test_logger.py", line 96, in test_info_log_exception
+            'traceback': '''File "/usr/src/app/tests/test_logger.py", line 106, in test_info_log_exception
     raise ValueError('value issue!')'''
         }
     },
@@ -97,7 +97,7 @@ snapshots['test_debug_log 1'] = {
     'data': {
         '_code': {
             'func_name': 'test_debug_log',
-            'lineno': 105,
+            'lineno': 115,
             'pathname': '/usr/src/app/tests/test_logger.py'
         }
     },
@@ -149,5 +149,29 @@ snapshots['test_critical_log 1'] = {
     'message': 'critical here!',
     'region': 'us-east-2',
     'service': 'test_app',
+    'timestamp': '2018-02-14T00:00:00+00:00'
+}
+
+snapshots['test_info_log_handle_set_type 1'] = {
+    'data': {
+        'a': 1,
+        'b': [
+            1,
+            2
+        ],
+        'c': [
+            1,
+            '3'
+        ]
+    },
+    'environment': 'prod',
+    'host': 'testhost',
+    'level': 'info',
+    'message': 'test message',
+    'region': 'us-east-2',
+    'service': 'test_app',
+    'tags': [
+        'test'
+    ],
     'timestamp': '2018-02-14T00:00:00+00:00'
 }
