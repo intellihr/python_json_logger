@@ -74,7 +74,7 @@ class JsonFormatter(logging.Formatter):
             data.update(getattr(record, 'data'))
 
         # include exception detail when available
-        if record.exc_info is not None:
+        if hasattr(record.exc_info, '__getitem__'):
             data['_exc_info'] = dict(
                 exception=record.exc_info[0],
                 msg=record.exc_info[1],

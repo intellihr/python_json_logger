@@ -118,3 +118,5 @@ Based on: https://intellihr.atlassian.net/wiki/spaces/DG/pages/284983300/Logging
   - change log level from error to err
 - `v0.0.5` (mapped to format standard version `0.0.1`)
   - support log set type
+- `v0.0.6` (mapped to format standard version `0.0.1`)
+  - fix bug for non-scriptable exc_info
